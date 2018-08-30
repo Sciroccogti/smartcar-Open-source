@@ -1421,6 +1421,7 @@ uchar Traversal_Right_Line(uchar i, uchar *data, uchar *Left_Line, uchar *Right_
 *
 *	说明：本函数使用后将保存边界数据
 */
+//Traversal_Mid_Line(i, data, Mid_Line[i+2], 1, 79, Left_Line, Right_Line, Left_Add_Line, Right_Add_Line);
 void Traversal_Mid_Line(uchar i, uchar *data, uchar Mid, uchar Left_Min, uchar Right_Max, uchar *Left_Line, uchar *Right_Line, uchar *Left_Add_Line, uchar *Right_Add_Line)
 {
 	uchar j;
@@ -2417,9 +2418,12 @@ void Ramp_Check(void)
         if (Left_Line[j] >= Left_Line[j+2]&&Right_Line[j] <= Right_Line[j+2]&&Left_Line[j]>Left_Line[59]&&Right_Line[j]<Right_Line[59])	//与前一行的边界实线比较	
         {
             Ramp_Error[i]=Width_Real[j]-Width_Max[j];
-            if(Ramp_Error[i]>=20)Ramp_Error[i]=0;
-            else if(Ramp_Error[i]<=0)Ramp_Error[i]=0;
-          if(Width_Real[j]>Width_Max[j]) Ramp_Count++;
+            if(Ramp_Error[i]>=20)
+              Ramp_Error[i]=0;
+            else if(Ramp_Error[i]<=0)
+              Ramp_Error[i]=0;
+          if(Width_Real[j]>Width_Max[j])
+            Ramp_Count++;
         }
       }
       Ramp_Error_Sum+=Ramp_Error[i];

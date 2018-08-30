@@ -19,6 +19,22 @@
 @REM 
 
 
-"E:\study software\IAR\common\bin\cspybat" "E:\study software\IAR\arm\bin\armproc.dll" "E:\study software\IAR\arm\bin\armjlink.dll"  %1 --plugin "E:\study software\IAR\arm\bin\armbat.dll" --device_macro "E:\study software\IAR\arm\config\debugger\Freescale\KLxx.dmac" --flash_loader "E:\study software\IAR\arm\config\flashloader\Freescale\FlashKLxx256K.board" --backend -B "--endian=little" "--cpu=Cortex-M0+" "--fpu=None" "-p" "E:\study software\IAR\arm\CONFIG\debugger\Freescale\MKL26Z256xxx4.ddf" "--semihosting" "--device=MKL26Z256xxx4" "--drv_mtb_regbase=0xF0000000" "--drv_mtb_dwtregbase=0xF0001000" "--drv_mtb_minramaddr=0x20000000" "--drv_mtb_maxramaddr=0x20005FFF" "--drv_communication=USB0" "--drv_interface_speed=auto" "--jlink_initial_speed=32" "--jlink_reset_strategy=0,0" "--drv_interface=SWD" "--drv_catch_exceptions=0x000" "--drv_swo_clock_setup=72000000,0,2000000" 
+@echo off 
 
+if not "%~1" == "" goto debugFile 
 
+@echo on 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\11918\Desktop\smartcar-Open-source\重庆大学 不慢队\kl26(国赛)\kl26\SmartCar\Prj\IAR\settings\SmartCar.Debug.general.xcl" --backend -f "C:\Users\11918\Desktop\smartcar-Open-source\重庆大学 不慢队\kl26(国赛)\kl26\SmartCar\Prj\IAR\settings\SmartCar.Debug.driver.xcl" 
+
+@echo off 
+goto end 
+
+:debugFile 
+
+@echo on 
+
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\11918\Desktop\smartcar-Open-source\重庆大学 不慢队\kl26(国赛)\kl26\SmartCar\Prj\IAR\settings\SmartCar.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\11918\Desktop\smartcar-Open-source\重庆大学 不慢队\kl26(国赛)\kl26\SmartCar\Prj\IAR\settings\SmartCar.Debug.driver.xcl" 
+
+@echo off 
+:end
