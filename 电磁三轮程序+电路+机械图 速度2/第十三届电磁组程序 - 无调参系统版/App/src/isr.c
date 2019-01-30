@@ -20,56 +20,56 @@ void PIT_CH0_IRQHandler(void)
 {
     PIT_FLAG_CLR(PIT0);
     
-	//标志变量定义
-	static uint16 i = 0;
-	static uint16 j = 0;
+    //标志变量定义
+    static uint16 i = 0;
+    static uint16 j = 0;
 	
-	//0.5sLED闪烁
-	i++;
-	if(i >= 100)  
+    //0.5sLED闪烁
+    i++;
+    if(i >= 100)  
     {    
-    	i = 0;
-    	gpio_turn(LED);
-	}
-	//20ms一次速度控制
-	j++;
-	if(j >= 4)  
+      i = 0;
+      gpio_turn(LED);
+    }
+    //20ms一次速度控制
+    j++;
+    if(j >= 4)  
     {    
-    	j = 0;
-		SpeedControl();
-	}	
-	DirectionControl();	//方向控制
-	PWMOut();			//最终PWM输出
+      j = 0;
+      SpeedControl();
+    }	
+    DirectionControl();	//方向控制
+    PWMOut();			//最终PWM输出
 	
-	//以下为虚拟示波器部分
-	switch(Flag_Out)
-	{		
-		case 0 : 	OutData[0] = (int)g_fRealSpeed;		//真实速度
-		  			OutData[1] = (int)g_fSpeedError;	//速度偏差
-					OutData[2] = (int)g_fSpeedFilter;	//速度滤波
-					OutData[3] = (int)g_fExpectSpeed;	//期望速度
-					break;
+    //以下为虚拟示波器部分
+    switch(Flag_Out)
+    {		
+      case 0 : 	OutData[0] = (int)g_fRealSpeed;		//真实速度
+                OutData[1] = (int)g_fSpeedError;	//速度偏差
+                OutData[2] = (int)g_fSpeedFilter;	//速度滤波
+                OutData[3] = (int)g_fExpectSpeed;	//期望速度
+                break;
 					
-		case 1 :	OutData[0] = (int)g_ValueOfAD[0];	//水平左电感
-		  			OutData[1] = (int)g_ValueOfAD[1];	//水平右电感
-					OutData[2] = (int)(1000*g_fDirectionError[0]);		//方向偏差	  （放大1000倍）
-					OutData[3] = (int)(1000*g_fDirectionError_dot[0]);	//方向偏差微分（放大1000倍）
-					break;
+      case 1 :	OutData[0] = (int)g_ValueOfAD[0];	//水平左电感
+                OutData[1] = (int)g_ValueOfAD[1];	//水平右电感
+                OutData[2] = (int)(1000*g_fDirectionError[0]);		//方向偏差	  （放大1000倍）
+                OutData[3] = (int)(1000*g_fDirectionError_dot[0]);	//方向偏差微分（放大1000倍）
+                break;
 					
-		case 2 :	OutData[0] = (int)g_ValueOfAD[0];//水平左电感
-		  			OutData[1] = (int)g_ValueOfAD[1];//垂直右电感
-					OutData[2] = (int)g_ValueOfAD[2];//水平左电感
-					OutData[3] = (int)g_ValueOfAD[3];//垂直右电感
-					break;	
+      case 2 :	OutData[0] = (int)g_ValueOfAD[0];//水平左电感
+                OutData[1] = (int)g_ValueOfAD[1];//垂直右电感
+                OutData[2] = (int)g_ValueOfAD[2];//水平左电感
+                OutData[3] = (int)g_ValueOfAD[3];//垂直右电感
+                break;	
 					
-		case 3 :	OutData[0] = (int)g_fSpeedControlOut;		//速度控制输出	（红）
-		  			OutData[1] = (int)g_fDirectionControlOut;	//方向输出		（黄）
-					OutData[2] = (int)g_PWMOut;					//总PWM			（蓝）
-					OutData[3] = 0;
-					break;
-		default :break;
-	}
-	OutPut_Data();
+      case 3 :	OutData[0] = (int)g_fSpeedControlOut;		//速度控制输出	（红）
+                OutData[1] = (int)g_fDirectionControlOut;	//方向输出		（黄）
+                OutData[2] = (int)g_PWMOut;					//总PWM			（蓝）
+                OutData[3] = 0;
+                break;
+      default :break;
+    }
+    OutPut_Data();
 }
 
 
