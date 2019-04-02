@@ -1,0 +1,31 @@
+
+Servo_p=deviation*deviation*(Servo_p_1)/10000+(Servo_P_2)/10;
+Pwm_Servo = Pwm_Mid-(Servo_p*deviation+(deviation-last_deviation)*steer_d);
+
+
+
+
+增量式PID
+Pwm_Moto+=mP*Speed_error1[0]/10+mD*( +Speed_error1[0] -Speed_error1[1])/10+mI*Speed_error1[1]/10;
+if(Pwm_Moto>0.6)//限幅
+	Pwm_Moto=0.6;
+if(Pwm_Moto<-0.6)
+	Pwm_Moto=-0.6;
+
+位置式PID
+if(set_speed<0&&Integral_bias>0)
+{
+	Integral_bias=0;
+}
+Integral_bias+=Speed_error1[0] ; 
+if(Integral_bias>5000)//积分偏差限幅
+	Integral_bias=5000;
+if(Speed_error1[0]<-50&&set_speed>0)
+	Integral_bias=0;
+if(Speed_error1[0]>50&&set_speed<0)
+	Integral_bias=0;
+Pwm_Moto=mP*Speed_error1[0]/100 +mI*Integral_bias/1000+mD*(Speed_error1[0] - Speed_error1[1])/100;
+if(Pwm_Moto>0.6)//限幅
+	Pwm_Moto=0.6;
+if(Pwm_Moto<-0.6)
+	Pwm_Moto=-0.6;
